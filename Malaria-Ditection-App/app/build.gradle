@@ -36,6 +36,9 @@ dependencies {
     implementation "org.jetbrains.anko:anko-commons:0.10.0"
     implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
 
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
