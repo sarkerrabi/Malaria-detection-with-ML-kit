@@ -5,22 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    android:gravity="center"
+    android:padding="@dimen/_5sdp"
+    tools:context=".MainActivity">
+
 
     <TextView
-        android:id="@+id/tvChooseImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:background="@drawable/choose_image_bg"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
-        android:text="Choose Image"
-        android:textColor="@android:color/white"
+        android:text="RESULT:"
+        android:textColor="@android:color/background_dark"
         android:textSize="@dimen/_18ssp" />
+
+
+    <TextView
+        android:id="@+id/tvResultMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:text="N/A"
+        android:textColor="@android:color/background_dark"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/ivChooseImage"
@@ -29,33 +43,18 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        app:srcCompat="@drawable/ic_blood" />
+        android:layout_marginBottom="@dimen/_30sdp"
+        app:srcCompat="@drawable/picture" />
+
 
     <TextView
+        android:id="@+id/tvChooseImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/choose_image_bg"
         android:gravity="center"
-        android:padding="@dimen/_10sdp"
-        android:text="RESULT:"
-        android:textColor="@android:color/background_dark"
-        android:textSize="@dimen/_18ssp" />
-
-    <TextView
-        android:id="@+id/tvResultMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:gravity="center"
-        android:padding="@dimen/_10sdp"
-        android:text="Message"
-        android:textColor="@android:color/background_dark"
-        android:textSize="@dimen/_18ssp" />
-
+        android:padding="@dimen/_5sdp"
+        android:text="CHOOSE IMAGE"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_12ssp" />
 </LinearLayout>

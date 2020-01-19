@@ -18,7 +18,7 @@ import lab.tnr.malariaditection.tflite.Classifier
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val mInputSize = 32
-    private val mModelPath = "tf_lite_model.tflite"
+    private val mModelPath = "converted_autoencoder_final_result_32.tflite"
     private val mLabelPath = "myLable.txt"
     private lateinit var classifier: Classifier
 
