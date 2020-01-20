@@ -1,4 +1,4 @@
-# Malaria-ditection-with-ML-kit
+# Malaria-detection-with-ML-kit
 
 This app will help you to detect malaria from image
 
