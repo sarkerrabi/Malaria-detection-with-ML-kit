@@ -1,4 +1,4 @@
-package lab.tnr.malariaditection
+package lab.tnr.malariadetection
 
 import android.Manifest
 import android.app.Activity
@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import lab.tnr.malariaditection.tflite.Classifier
+import lab.tnr.malariadetection.tflite.Classifier
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {

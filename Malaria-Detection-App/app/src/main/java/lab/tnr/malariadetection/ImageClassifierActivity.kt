@@ -1,4 +1,4 @@
-package lab.tnr.malariaditection
+package lab.tnr.malariadetection
 
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import lab.tnr.malariaditection.tflite.Classifier
+import lab.tnr.malariadetection.tflite.Classifier
 
 class ImageClassifierActivity : AppCompatActivity(), View.OnClickListener {
 

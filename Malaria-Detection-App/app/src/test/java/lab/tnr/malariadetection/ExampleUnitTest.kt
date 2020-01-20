@@ -1,4 +1,4 @@
-package lab.tnr.malariaditection
+package lab.tnr.malariadetection
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

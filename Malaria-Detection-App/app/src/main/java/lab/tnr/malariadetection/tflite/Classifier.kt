@@ -1,4 +1,4 @@
-package lab.tnr.malariaditection.tflite
+package lab.tnr.malariadetection.tflite
 
 import android.content.res.AssetManager
 import android.graphics.Bitmap
