@@ -37,12 +37,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initViews() {
         findViewById<Button>(R.id.btChooseImg).setOnClickListener(this)
+        findViewById<Button>(R.id.btCaptureImg).setOnClickListener(this)
         imgView  = findViewById<ImageView>(R.id.ivChooseImage)
         resultView = findViewById<TextView>(R.id.tvResultMessage)
     }
 
     override fun onClick(v: View?) {
-        if (v?.id != R.id.btChooseImg) {
+        if (v?.id == R.id.btChooseImg) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 //system OS is < Marshmallow
                 pickImageFromGallery()
             }
-        } else {
+        } else if (v?.id == R.id.btCaptureImg) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.CAMERA) ==
                     PackageManager.PERMISSION_DENIED

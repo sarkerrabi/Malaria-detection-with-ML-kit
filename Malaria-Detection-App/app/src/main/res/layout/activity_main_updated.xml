@@ -67,6 +67,19 @@
             app:srcCompat="@drawable/pick_image" />
 
         <Button
+            android:id="@+id/btCaptureImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btChooseImg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/choose_image_bg"
+            android:paddingLeft="@dimen/_40sdp"
+            android:paddingRight="@dimen/_40sdp"
+            android:text="Capture IMAGE"
+            android:textColor="@android:color/white" />
+
+        <Button
             android:id="@+id/btChooseImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
