@@ -1,18 +1,22 @@
-package lab.tnr.malariadetection
+package lab.tnr.malariaditection
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 import lab.tnr.malariadetection.tflite.Classifier
+
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -24,38 +28,59 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var imgView: ImageView? = null
     private var resultView: TextView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_updated)
         initViews()
         initClassifier()
     }
 
     private fun initViews() {
-        findViewById<TextView>(R.id.tvChooseImg).setOnClickListener(this)
+        findViewById<Button>(R.id.btChooseImg).setOnClickListener(this)
         imgView  = findViewById<ImageView>(R.id.ivChooseImage)
         resultView = findViewById<TextView>(R.id.tvResultMessage)
     }
 
     override fun onClick(v: View?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_DENIED){
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                //show popup to request runtime permission
-                requestPermissions(permissions, PERMISSION_CODE)
-            }
-            else{
-                //permission already granted
+        if (v?.id != R.id.btChooseImg) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_DENIED
+                ) {
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, PERMISSION_CODE)
+                } else {
+                    //permission already granted
+                    pickImageFromGallery()
+                }
+            } else {
+                //system OS is < Marshmallow
                 pickImageFromGallery()
             }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) ==
+                    PackageManager.PERMISSION_DENIED
+                ) {
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.CAMERA)
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, CAMERA_PERMISSION_CODE)
+                } else {
+                    //permission already granted
+                    dispatchTakePictureIntent()
+                }
+            } else {
+                //system OS is < Marshmallow
+                dispatchTakePictureIntent()
+            }
         }
-        else{
-            //system OS is < Marshmallow
-            pickImageFromGallery()
-        }
+
+
+
+
     }
 
     private fun pickImageFromGallery() {
@@ -64,6 +89,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+    }
+
     //handle requested permission result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode){
@@ -72,14 +106,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     PackageManager.PERMISSION_GRANTED){
                     //permission from popup granted
                     pickImageFromGallery()
+                } else {
+                    //permission from popup denied
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
-                else{
+            }
+            CAMERA_PERMISSION_CODE -> {
+                if (grantResults.size > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
+                    //permission from popup granted
+                    dispatchTakePictureIntent()
+                } else{
                     //permission from popup denied
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
 
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -91,9 +136,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             val result = classifier.recognizeImage(bitmap)
 
-            resultView?.setText(""+result[0].title)
+            resultView?.text = "" + result[0].title
 
             runOnUiThread { Toast.makeText(this, result[0].title, Toast.LENGTH_SHORT).show() }
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            imgView?.setImageBitmap(imageBitmap)
+
+            val result = classifier.recognizeImage(imageBitmap)
+
+            resultView?.text = "" + result[0].title
+
+            runOnUiThread { Toast.makeText(this, result[0].title, Toast.LENGTH_SHORT).show() }
+
+
         }
     }
 
@@ -105,8 +161,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         //image pick code
         private val IMAGE_PICK_CODE = 1000
+
+        //capture image
+        private val REQUEST_IMAGE_CAPTURE = 1
+
         //Permission code
         private val PERMISSION_CODE = 1001
+
+        //Permission code
+        private val CAMERA_PERMISSION_CODE = 1002
+
+
     }
 
 

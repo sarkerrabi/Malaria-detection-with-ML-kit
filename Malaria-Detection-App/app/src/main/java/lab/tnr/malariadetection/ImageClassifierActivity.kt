@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import lab.tnr.malariadetection.tflite.Classifier
+import lab.tnr.malariaditection.R
 
 class ImageClassifierActivity : AppCompatActivity(), View.OnClickListener {
 
